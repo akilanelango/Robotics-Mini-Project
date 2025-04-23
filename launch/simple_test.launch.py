@@ -6,7 +6,6 @@ from ament_index_python.packages import get_package_share_directory
 def generate_launch_description():
     pkg_dir = get_package_share_directory('arm_delivery_project')
     urdf_path = os.path.join(pkg_dir, 'urdf', 'arm.urdf')
-    
     with open(urdf_path, 'r') as infp:
         robot_desc = infp.read()
 
