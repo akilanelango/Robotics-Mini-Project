@@ -6,6 +6,8 @@ from ament_index_python.packages import get_package_share_directory
 def generate_launch_description():
     pkg_dir = get_package_share_directory('arm_delivery_project')
     urdf_path = os.path.join(pkg_dir, 'urdf', 'arm.urdf')
+
+    # Read the URDF file contents
     with open(urdf_path, 'r') as infp:
         robot_desc = infp.read()
 
@@ -27,11 +29,13 @@ def generate_launch_description():
             parameters=[{'robot_description': robot_desc}],
             output='screen'
         ),
-        # RViz
+
+        # RViz with slight update: added default config if available
         Node(
             package='rviz2',
             executable='rviz2',
             name='rviz2',
-            output='screen'
+            output='screen',
+            arguments=['-d', os.path.join(pkg_dir, 'rviz', 'arm.rviz')]  # Added RViz config path
         )
     ])
